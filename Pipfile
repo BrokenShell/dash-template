@@ -6,13 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-wheel = "*"
 dash = "==1.9.1"
 dash-bootstrap-components = "*"
 gunicorn = "*"
 plotly = "*"
 pandas = "*"
-xgboost = "*"
 
 [requires]
 python_version = "3"
