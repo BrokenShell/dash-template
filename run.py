@@ -13,10 +13,8 @@ navbar = dbc.NavbarSimple(
     brand='Basic Plotly App',
     brand_href='/',
     children=[
-        dbc.NavItem(
-            dcc.Link('Predictions', href='/predictions', className='nav-link')),
-        dbc.NavItem(
-            dcc.Link('Insights', href='/insights', className='nav-link')),
+        dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')),
+        dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')),
         dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')),
     ],
     sticky='top',
@@ -58,21 +56,21 @@ app.layout = html.Div([
     navbar,
     dbc.Container(id='page-content', className='mt-4'),
     html.Hr(),
-    footer
+    footer,
 ])
 
 
 # URL Routing for Multi-Page Apps: https://dash.plot.ly/urls
 @app.callback(Output('page-content', 'children'), [Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/':
-        return index.layout
-    elif pathname == '/predictions':
-        return predictions.layout
-    elif pathname == '/insights':
-        return insights.layout
-    elif pathname == '/process':
-        return process.layout
+    dispatch = {
+        '/': index.layout,
+        '/predictions': predictions.layout,
+        '/insights': insights.layout,
+        '/process': process.layout,
+    }
+    if pathname in dispatch.keys():
+        return dispatch[pathname]
     else:
         return dcc.Markdown('## Page not found')
 
